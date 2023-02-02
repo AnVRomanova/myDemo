@@ -13,14 +13,9 @@ public class Main {
         String expression = "expression";
         Scanner in = new Scanner(System.in);
         System.out.println("print expression ") ; expression = in.nextLine();
-
         String result = calc(expression);
         System.out.println(result);
         in.close();
-
-
-
-
     }
         public static String calc(String input) throws IOException {
 
@@ -46,6 +41,7 @@ public class Main {
                     break;
                 }
             }
+
             resultStr = Integer.toString(result);
             if(nums[3] == 1){
                 if(result <= 0){
@@ -55,13 +51,10 @@ public class Main {
                         throw new RuntimeException(e);
                     }
                 }
+
                 resultStr = makeRoman(result);
 
             }
-
-
-
-
 
             return resultStr;
 
@@ -70,9 +63,7 @@ public class Main {
     public static int[] parsing(String input)  {
 
         // Reading numbers and mathematical operation.
-
         int[] nums = new int[] { 0, 0, 0, 0};// a, b, operation, roman
-
         String[] str1 = input.split(" ");
         if(str1.length != 3 ){
             try {
@@ -93,6 +84,7 @@ public class Main {
 
         for (int i = 0; i < 10; i++){
             if(str1[0].equals(romanNumbers[i])){ nums[0] = i + 1; nums[3] = 1;}
+
             if(str1[2].equals(romanNumbers[i])){ nums[1] = i + 1; nums[3] = 1;}
         }
         if ((nums[0] == 0 && nums[1] != 0) || (nums[0] != 0 && nums[1] == 0) ){
@@ -101,25 +93,28 @@ public class Main {
             } catch (FormatException e) {
                 throw new RuntimeException(e);
             }
-
         }
+
         if(nums[0] == 0 || nums[1] == 0){
             nums[0] = Integer.parseInt(str1[0]);
             nums[1]= Integer.parseInt(str1[2]);
         }
+
         if ((nums[0] < 1 || nums[0] > 10) || (nums[1] < 1 || nums[1] > 10)){
             try {
-                throw new MyException("Калькулятор умеет работать только с числами от 1 до 10 включительно.\nВведите другое число");
+                throw new FormatException("Калькулятор умеет работать только с числами от 1 до 10 включительно.\nВведите другое число");
 
-        } catch (MyException e) {
+        } catch (FormatException e) {
                 throw new RuntimeException(e);
-            }}
+            }
+        }
 
-            //sign (+ - * /)  (0 1 2 3)
         nums[2] = 4;
         String[] chars = {"+", "-", "*", "/"};
         for (int i = 0; i < 4; i++){
-            if(str1[1].equals(chars[i])){ nums[2] = i;}}
+            if(str1[1].equals(chars[i])){ nums[2] = i;}
+        }
+
         if(nums[2] == 4){
             try {
                 throw new FormatException("Формат математической операции не удовлетворяет заданию - два операнда и один оператор (+, -, /, *).\nВведите другое выражение");
